@@ -1,0 +1,40 @@
+import numpy as np  
+import matplotlib.pyplot as plt
+from matplotlib import cm, colors
+get_ipython().run_line_magic('matplotlib', 'qt5')
+    
+#%%
+def flip_a_coin(n_veces): #tira n veces la 'moneda'
+    c_s= np.array([-1,1])
+    tiradas= np.zeros(n_veces)
+    for i in range (0,n_veces):
+        tiradas[i]= np.random.choice(c_s)
+    return tiradas
+
+def trayectoria(x0, n_veces):#(posicion inicial,n)
+    pos= np.zeros(n_veces)
+    pos1[0]= x0
+    steps= flip_a_coin(n_veces)
+    for i in range(0, n_veces-1):
+        pos[i+1]= pos[i]+ steps[i]
+    return pos
+
+#%%
+ejemplo1= flip_a_coin(50)
+x0=1
+pos1= np.zeros(len(ejemplo1))
+pos1[0]= x0
+for i in range (0,len(ejemplo1)-1):
+    pos1[i+1]= pos1[i]+ ejemplo1[i]
+    
+#%%
+N= 100000
+t= np.linspace(0,N, N)
+borracho1= trayectoria(0, N)
+
+f1= lambda t: np.sqrt(t)
+
+
+plt.plot(np.arange(0,N), borracho1)
+plt.plot(t, f1(t))
+plt.plot(t, -f1(t))
