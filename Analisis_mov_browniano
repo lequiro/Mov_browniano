@@ -1,0 +1,39 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Aug 29 15:42:27 2022
+
+@author: Luis Quispe
+"""
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+from scipy.optimize import curve_fit
+from scipy.optimize import least_squares
+get_ipython().run_line_magic('matplotlib', 'qt5')
+
+import os
+os.chdir (r"  (#acá copiar donde tengas los archivos C:\Users\...)  ")
+params = {'xtick.labelsize': 20, 'ytick.labelsize': 20, 'axes.labelsize':25, 'axes.titlesize':25, 'figure.figsize':(15,9), 'legend.fontsize':15}
+
+
+#%%
+
+df=pd.read_csv('datos_med_1.txt') #nombre del archivo
+
+datos= df.to_numpy()
+
+t=datos[:,0]
+posicion_x= datos[:,1]
+posicion_y= datos[:,2]
+
+r_cuadrado= np.cumsum( np.diff(posicion_x)**2 + np.diff(posicion_y)**2 )
+
+#r_cuadrado= np.cumsum( np.diff(posicion_x)**2 ) + np.cumsum( np.diff(posicion_y)**2 )
+    
+
+plt.scatter(t[:-1],r_cuadrado, s=5)
+plt.grid()
+plt.xlabel('Tiempo(s)')
+plt.ylabel('Desplazamiento Cuadrático Medio($ \mu~m $)')
+plt.legend()
